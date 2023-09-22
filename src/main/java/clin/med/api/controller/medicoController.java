@@ -1,9 +1,6 @@
 package clin.med.api.controller;
 
-import clin.med.api.medico.DadosCadastroMedico;
-import clin.med.api.medico.DadosListarMedico;
-import clin.med.api.medico.Medico;
-import clin.med.api.medico.MedicoRepository;
+import clin.med.api.medico.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -30,6 +27,13 @@ public class medicoController {
     @GetMapping
     public Page<DadosListarMedico> listarMedicos(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao){
         return repository.findAll(paginacao).map(DadosListarMedico::new);
+    }
+
+    @PutMapping
+    @Transactional
+    public void atualizarMedico(@RequestBody @Valid DadosAtualizaMedico dados){
+        var medico = repository.getReferenceById(dados.id());
+        medico.atualizarDadosMedico(dados);
     }
 
 }
