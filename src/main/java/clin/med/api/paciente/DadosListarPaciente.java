@@ -1,8 +1,8 @@
 package clin.med.api.paciente;
 
-public record DadosListarPaciente(String nome, String email, String cpf) {
+public record DadosListarPaciente(Long id, String nome, String email, String cpf) {
 
     public DadosListarPaciente(Paciente paciente){
-        this(paciente.getNome(), paciente.getEmail(), paciente.getCpf());
+        this(paciente.getId(),paciente.getNome(), paciente.getEmail(), paciente.getCpf());
     }
 }
