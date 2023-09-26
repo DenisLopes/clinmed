@@ -1,6 +1,6 @@
 package clin.med.api.controller;
 
-import clin.med.api.medico.*;
+import clin.med.api.domain.medico.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,7 +20,7 @@ public class medicoController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity cadastrarMedico(@RequestBody @Valid DadosCadastroMedico dados, UriComponentsBuilder uriBuilder){
+    public ResponseEntity cadastrarMedico(@RequestBody @Valid DadosCadastroMedico dados, UriComponentsBuilder uriBuilder) {
         var medico = new Medico(dados);
         repository.save(medico);
 
@@ -30,14 +30,14 @@ public class medicoController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<DadosListarMedico>> listarMedicos(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao){
+    public ResponseEntity<Page<DadosListarMedico>> listarMedicos(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
         var page = repository.findAllByAtivoTrue(paginacao).map(DadosListarMedico::new);
         return ResponseEntity.ok(page);
     }
 
     @PutMapping
     @Transactional
-    public ResponseEntity atualizarMedico(@RequestBody @Valid DadosAtualizaMedico dados){
+    public ResponseEntity atualizarMedico(@RequestBody @Valid DadosAtualizaMedico dados) {
         var medico = repository.getReferenceById(dados.id());
         medico.atualizarDadosMedico(dados);
 
@@ -46,14 +46,14 @@ public class medicoController {
 
     @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity excluirMedico(@PathVariable Long id){
+    public ResponseEntity excluirMedico(@PathVariable Long id) {
         var medico = repository.getReferenceById(id);
         medico.inativar();
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity detalharMedico(@PathVariable Long id){
+    public ResponseEntity detalharMedico(@PathVariable Long id) {
         var medico = repository.getReferenceById(id);
         return ResponseEntity.ok(new DadosDetalhamentoCompletaMedico(medico));
     }

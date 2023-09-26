@@ -1,4 +1,4 @@
-package clin.med.api.paciente;
+package clin.med.api.domain.paciente;
 
 public record DadosListarPaciente(Long id, String nome, String email, String cpf) {
 

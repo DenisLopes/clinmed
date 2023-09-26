@@ -1,6 +1,6 @@
-package clin.med.api.paciente;
+package clin.med.api.controller;
 
-import clin.med.api.medico.DadosDetalhamentoCompletaMedico;
+import clin.med.api.domain.paciente.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -29,7 +29,7 @@ public class PacienteController {
     }
 
     @GetMapping
-    public ResponseEntity <Page<DadosListarPaciente>> listarPacientes(@PageableDefault(page = 0, size = 10, sort = {"nome"}) Pageable paginacao) {
+    public ResponseEntity<Page<DadosListarPaciente>> listarPacientes(@PageableDefault(page = 0, size = 10, sort = {"nome"}) Pageable paginacao) {
         var page = repository.findAllByAtivoTrue(paginacao).map(DadosListarPaciente::new);
         return ResponseEntity.ok(page);
     }
@@ -47,7 +47,7 @@ public class PacienteController {
     public ResponseEntity remover(@PathVariable Long id) {
         var paciente = repository.getReferenceById(id);
         paciente.inativar();
-       return ResponseEntity.noContent().build();
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}")
