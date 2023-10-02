@@ -1,6 +1,5 @@
-package clin.med.api.endereco;
+package clin.med.api.domain.endereco;
 
-import clin.med.api.medico.DadosAtualizaMedico;
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,31 +30,31 @@ public class Endereco {
     }
 
     public void atualizarEndereco(DadosEndereco dados) {
-        if (this.logradouro != null){
+        if (this.logradouro != null) {
             this.logradouro = dados.logradouro();
         }
 
-        if (this.bairro != null){
+        if (this.bairro != null) {
             this.bairro = dados.bairro();
         }
 
-        if (this.cep != null){
+        if (this.cep != null) {
             this.cep = dados.cep();
         }
 
-        if (this.numero != null){
+        if (this.numero != null) {
             this.numero = dados.numero();
         }
 
-        if (this.complemento != null){
+        if (this.complemento != null) {
             this.complemento = dados.complemento();
         }
 
-        if (this.cidade != null){
+        if (this.cidade != null) {
             this.cidade = dados.cidade();
         }
 
-        if (this.uf != null){
+        if (this.uf != null) {
             this.uf = dados.uf();
         }
     }

@@ -1,4 +1,4 @@
-package clin.med.api.medico;
+package clin.med.api.domain.medico;
 
 public enum Especialidade {
 
