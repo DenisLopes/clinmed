@@ -1,0 +1,23 @@
+package clin.med.api.domain.consulta.validacoes;
+
+import clin.med.api.domain.ValidacaoException;
+import clin.med.api.domain.consulta.ConsultaRepository;
+import clin.med.api.domain.consulta.DadosAgendamentoConsulta;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
+public class ValidarMedicoComOutraConsultaNoMesmoHorario implements ValidadorAgendamentoDeConsulta{
+
+    @Autowired
+    private ConsultaRepository consultaRepository;
+
+    public void validar(DadosAgendamentoConsulta dados) {
+        var medicoPossuiOutraConsultaNoMesmoHoariro = consultaRepository.existsByMedicoIdAndData(dados.idMedico(), dados.data());
+        if (medicoPossuiOutraConsultaNoMesmoHoariro){
+            throw new ValidacaoException("Medico ja possui outra consulta agendada nesse mesmo horario");
+        }
+
+    }
+
+}
